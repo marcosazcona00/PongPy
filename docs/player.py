@@ -4,9 +4,9 @@ import pygame
 import PySimpleGUI as sg
 
 class Player:
-    def __init__(self):
-        self.__x_position = 5
-        self.__y_position = 200
+    def __init__(self,x,y):
+        self.__x_position = x
+        self.__y_position = y
         self.__top_y = self.__y_position #Define el tope del rectangulo
         self.__y_limit = self.__y_position + 100 #Define el tope de abajo del rectangulo
         self.__rect = pygame.Rect(self.__x_position,self.__y_position,20,100) #Obtengo el objeto rect
@@ -52,7 +52,8 @@ class Player:
 
 class PlayerJ1(Player):
 
-    def __init__(self):
-        super().__init__() #Llamo al constructor del padre 
+    def __init__(self,x,y):
+        super().__init__(x,y) #Llamo al constructor del padre 
+
 
 
