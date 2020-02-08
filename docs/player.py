@@ -27,28 +27,32 @@ class Player:
         """
   	   Mueve al rectangulo para arriba
         """
-        self.__top_y -= 10 #Acutalizo el limite de arriba del rectangulo
-        self.__y_limit -= 10 #Actualizo el limite de abajo del rectangulo
-        self.__y_position -= 10 #Decrementa la posicion para bajar
-        self.__rect = pygame.Rect(self.__x_position,self.__y_position,20,100)  #Crea un nuevo rectangulo con las posiciones actualizadas
+        if self.__top_y > 0:
+            self.__top_y -= 10 #Acutalizo el limite de arriba del rectangulo
+            self.__y_limit -= 10 #Actualizo el limite de abajo del rectangulo
+            self.__y_position -= 10 #Decrementa la posicion para bajar
+            self.__rect = pygame.Rect(self.__x_position,self.__y_position,20,100)  #Crea un nuevo rectangulo con las posiciones actualizadas
 
 
-    def move_down(self):
+    def move_down(self,screen):
         """
-           Mueve al rectangulo para abajo
+           Mueve al rectangulo para abajo. Recibe screen para saber la altura del screen con screen.get_height()
         """
-        self.__top_y += 10 #Acutalizo el limite de arriba del rectangulo
-        self.__y_limit += 10 #Acutalizo el limite de abajo del rectangulo
-        self.__y_position += 10 #Incrementa la posicion para bajar
-        self.__rect = pygame.Rect(self.__x_position,self.__y_position,20,100) #Crea un nuevo rectangulo con las posiciones actualizadas
+        if self.__y_limit < screen.get_height():
+            self.__top_y += 10 #Acutalizo el limite de arriba del rectangulo
+            self.__y_limit += 10 #Acutalizo el limite de abajo del rectangulo
+            self.__y_position += 10 #Incrementa la posicion para bajar
+            self.__rect = pygame.Rect(self.__x_position,self.__y_position,20,100) #Crea un nuevo rectangulo con las posiciones actualizadas
 
     def collide(self,x_ball,y_ball):
         pass
 
     def draw(self,screen):
-        pygame.draw.rect(screen,[255,255,255],self.__rect)
+       pygame.draw.rect(screen,[255,255,255],self.__rect)
 
 class PlayerJ1(Player):
 
     def __init__(self):
         super().__init__() #Llamo al constructor del padre 
+
+
