@@ -39,12 +39,13 @@ def main():
         try:
             #----------------INSTANCIO LOS OBJETOS DEL JUEGO ----------------------------------#
             player = Player(5,200,10)
-            player2 = Machine(580,200,6)
+            player2 = Machine(580,200,6.5)
             ball = Ball(screen)
             continue_playing = (0,0) #Continue_playing es 0 si nadie pierde. Será 1 si gana el J1, 2 si gana el J2
-            #Como lo cambié, la tupla es en la posicion 1 quien gana, y la posicion 2 si la pelota sobre el eje Y va positiva o negativamente
+            #Como lo cambié, la tupla es en la posicion 0 quien gana, y la posicion 1 si la pelota sobre el eje Y va positiva o negativamente
+            
+            
             #----------------------------------------------------------------------------------#
-
             while continue_playing[0] == 0: #Mientras nadie haya perdido
 
                 screen.fill((0,0,0)) #Dibujo el fondo de color negro
@@ -73,13 +74,7 @@ def main():
                 ball.draw() 
                 player.draw(screen)
 
-                        #Aca se evalua para donde mover a la máquina en función de si la pelota está bajando o subiendo
-                if continue_playing[1] == -6: #Si la pelota va para abajo
-                    player2.move_down(screen)
-                else: #Si la pelota va para arriba
-                    player2.move_up()
-
-                player2.draw(screen)
+                player2.draw(continue_playing[1],screen) #El draw de la máquina evalúa para dónde moverse y dibuja al jugador
                 
                 
                 pygame.draw.rect(screen,[255,255,255],middle_rect) #Dibuja el rectangulo del medio que separa los lados
@@ -106,6 +101,8 @@ def main():
         except pygame.error:
             break #Si cierra la pantalla, se levanta esta excepcion. Corto el primer while
         #-----------------------------------------------------------------------------------------------------------------------#
+
+
 
 if __name__ == '__main__':
     main()

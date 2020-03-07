@@ -55,3 +55,10 @@ class Machine(Player):
 
     def __init__(self,x,y,velocity):
         super().__init__(x,y,velocity) #Llamo al constructor del padre 
+
+    def draw(self,direction,screen):
+        if direction == -6: #Si la pelota va para abajo
+            super().move_down(screen) #Llamo al move_down del padre
+        else: #Si la pelota va para arriba
+            super().move_up()
+        super().draw(screen)
