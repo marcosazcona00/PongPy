@@ -12,11 +12,10 @@ def return_points(p1,p2,who_win):
        Retorna los puntajes actualizados en una lista [puntos_j1,puntos_j2]
     """
     if who_win is 1: #Si gana el jugador 1
-        return [p1 + 1,p2]
-    return [p1,p2 + 1] #Si gana el jugador 2
+        return [p1 + 1,p2] #A los puntos del j1 le sumo 1
+    return [p1,p2 + 1] #Si gana el jugador 2, a los puntos del j2 le sumo 1
        
 def main():
-
     #------------------------------- Inicializo pygame ----------------------------------------#
     pygame.init() 
     pygame.font.init()
@@ -74,6 +73,7 @@ def main():
                 ball.draw() 
                 player.draw(screen)
 
+                        #Aca se evalua para donde mover a la máquina en función de si la pelota está bajando o subiendo
                 if continue_playing[1] == -6: #Si la pelota va para abajo
                     player2.move_down(screen)
                 else: #Si la pelota va para arriba
@@ -97,7 +97,7 @@ def main():
             #---------------------- UNA VEZ QUE ALGUIEN PIERDE ---------------------------------------------------------------------#
         
             #----------------------------Actualizo la puntuacion -------------------------------------------------------------------#
-            points = return_points(points_j1,points_j2,continue_playing[0])
+            points = return_points(points_j1,points_j2,continue_playing[0]) #Guardo los puntajes actualizados
             points_j1 = points[0] #points[0] tiene guardado los puntos del jugador 1
             points_j2 = points[1] #points[1] tiene guaardado los puntos del jugador 2
 
