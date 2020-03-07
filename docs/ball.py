@@ -38,10 +38,10 @@ class Ball:
         if self.__left_limit == 0 or self.__right_limit >= self.__screen.get_width(): #Si los limites de la pelota tocan los limites de la izquierda o derecha
             if self.__left_limit == 0:
                 #Perdio el J1
-                return 2
+                return (2,self.__y_movement)
             elif self.__right_limit >= self.__screen.get_width(): 
                 #Perdio el J2
-                return 1
+                return (1,self.__y_movement)
         #---------------------------------------------------------------------------------------------------------------------------------#
 
         #-------------EVALUA SI LA PELOTA COLISIONA CON LOS BORDES DE ARRIBA O ABAJO Y CAMBIA LA DIRECCION -------------------------------#
@@ -58,7 +58,7 @@ class Ball:
                     self.__y_movement = self.__y_movement * -1
         #----------------------------------------------------------------------------------------------------------------------------------#
         
-        return 0 #Retorna 0 si no pierde nadie
+        return (0,self.__y_movement) #Retorna 0 si no pierde nadie
 
 
     def draw(self):

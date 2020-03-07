@@ -5,7 +5,7 @@ import time
 import pygame
 import PySimpleGUI as sg
 from ball import Ball
-from player import PlayerJ1
+from player import Player,Machine
 
 def return_points(p1,p2,who_win):
     """
@@ -24,6 +24,7 @@ def main():
     captured_event = None 
     screen = pygame.display.set_mode((600,450))
     
+
     middle_rect = pygame.Rect(300,0,10,450) #Es el rectangulo del medio que separa los lados
     font_text = pygame.font.SysFont('arial',30)
     #------------------------------------------------------------------------------------------#
@@ -38,13 +39,14 @@ def main():
     while points_j1 != 10 or points_j2 != 10: #Mientra nadie llegue a los 10 puntos
         try:
             #----------------INSTANCIO LOS OBJETOS DEL JUEGO ----------------------------------#
-            player = PlayerJ1(5,200)
-            player2 = PlayerJ1(580,200)
+            player = Player(5,200,10)
+            player2 = Machine(580,200,6)
             ball = Ball(screen)
-            continue_playing = 0 #Continue_playing es 0 si nadie pierde. Será 1 si gana el J1, 2 si gana el J2
+            continue_playing = (0,0) #Continue_playing es 0 si nadie pierde. Será 1 si gana el J1, 2 si gana el J2
+            #Como lo cambié, la tupla es en la posicion 1 quien gana, y la posicion 2 si la pelota sobre el eje Y va positiva o negativamente
             #----------------------------------------------------------------------------------#
 
-            while continue_playing == 0: #Mientras nadie haya perdido
+            while continue_playing[0] == 0: #Mientras nadie haya perdido
 
                 screen.fill((0,0,0)) #Dibujo el fondo de color negro
 
@@ -55,26 +57,34 @@ def main():
                     pygame.quit() 
                     break 
                 elif event.type == pygame.KEYDOWN:
+                    print(event.key)
                     if event.key == pygame.K_UP:
                         player.move_up()
-                    elif event.key == pygame.K_DOWN:
+                    if event.key == pygame.K_DOWN:
                         player.move_down(screen) #Manda como parametro screen para usar el screen.get_height()
-                    elif event.key == pygame.K_LEFT:
-                        player2.move_up()
-                    elif event.key == pygame.K_RIGHT:
-                        player2.move_down(screen)
 
+                       
                 # -----------------------------------------------------------------------------------------#
             
                 continue_playing = ball.evaluate_collition(player.get_tops()[0],player.get_tops()[1],player2.get_tops()[0],player2.get_tops()[1]) #Evalua las colisiones de la pelota con los dos jugadores. Si hubo colision, cambia la direccion de la pelota. Retorna 0 si todavia no pierde nadie. Retorna 1 si gana el jugador 1, retorna 2 si gana el jugador 2
                 
+                
+                
                 #---------------------------DIBUJA LOS ELEMENTOS EN PANTALLA-------------------------------------------#
                 ball.draw() 
                 player.draw(screen)
+
+                if continue_playing[1] == -6: #Si la pelota va para abajo
+                    player2.move_down(screen)
+                else: #Si la pelota va para arriba
+                    player2.move_up()
+
                 player2.draw(screen)
+                
+                
                 pygame.draw.rect(screen,[255,255,255],middle_rect) #Dibuja el rectangulo del medio que separa los lados
-                screen.blit(text_points_j1,((screen.get_width() / 2 - 100),20))
-                screen.blit(text_points_j2,((screen.get_width() / 2 + 100),20))
+                screen.blit(text_points_j1,((screen.get_width() / 2 - 100),20)) #Dibujo en la pantalla el texto de puntos del jugador 1
+                screen.blit(text_points_j2,((screen.get_width() / 2 + 100),20)) #Dibujo en la pantalla el texto de puntos del jugador 2
 
                 #------------------------------------------------------------------------------------------------------#
                 
@@ -87,7 +97,7 @@ def main():
             #---------------------- UNA VEZ QUE ALGUIEN PIERDE ---------------------------------------------------------------------#
         
             #----------------------------Actualizo la puntuacion -------------------------------------------------------------------#
-            points = return_points(points_j1,points_j2,continue_playing)
+            points = return_points(points_j1,points_j2,continue_playing[0])
             points_j1 = points[0] #points[0] tiene guardado los puntos del jugador 1
             points_j2 = points[1] #points[1] tiene guaardado los puntos del jugador 2
 
@@ -100,6 +110,8 @@ def main():
 if __name__ == '__main__':
     main()
     
+
+
 
 
 
