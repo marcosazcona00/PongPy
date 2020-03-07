@@ -18,7 +18,7 @@ class Ball:
     
     def get_position(self):
         """
-	   Devuelve los limites de la pelota
+	        Devuelve los limites de la izquierda y derecha de la pelota
         """
         return [self.__left_limit,self.__right_limit]    
 

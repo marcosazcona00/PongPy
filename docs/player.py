@@ -45,9 +45,6 @@ class Player:
             self.__y_position += self.__velocity #Incrementa la posicion para bajar
             self.__rect = pygame.Rect(self.__x_position,self.__y_position,20,100) #Crea un nuevo rectangulo con las posiciones actualizadas
 
-    def collide(self,x_ball,y_ball):
-        pass
-
     def draw(self,screen):
        pygame.draw.rect(screen,[255,255,255],self.__rect)
 
@@ -57,6 +54,9 @@ class Machine(Player):
         super().__init__(x,y,velocity) #Llamo al constructor del padre 
 
     def draw(self,direction,screen):
+        """
+            Este método evalúa para dónde mover a la máquina y la dibuja
+        """
         if direction == -6: #Si la pelota va para abajo
             super().move_down(screen) #Llamo al move_down del padre
         else: #Si la pelota va para arriba
